@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>弹幕</title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+<style>
+	*{margin:0;padding:0;}
+	.box{
+		width:90%;
+		height:300px;
+		margin:0 auto;
+		position:relative;
+		border:1px solid red;
+	}
+	.sps{
+		position:absolute;
+		white-space: nowrap;
+	}
+	.kk{
+		display: none;
+	}
+</style>
+	<body>
+		<div class="box"></div>
+		<input type="text" class="inps" />
+		<button class="btn">发送</button>
+		<div class="kk"></div>
+<script type="text/javascript">
+$(function(){
+	//生成随机颜色
+    var randomColor=function(){
+        var r= Math.floor(Math.random()*257);
+        var g= Math.floor(Math.random()*257);
+        var b= Math.floor(Math.random()*257);
+        return "rgb("+r+","+g+","+b+")";
+    }
+    $(".btn").click(function(){
+    	var inps=$(".inps").val();
+    	var randomTop=Math.floor(Math.random()*($(".box").height()-40));
+    	$(".kk").text(inps)
+    	console.log($(".kk").width());
+        var spans= $("<span class='sps'></span>").text(inps).css({
+            "color":randomColor(),
+            "top":randomTop,
+            "left":-($(".kk").width()+10),//从左开始
+            //"right":-($(".kk").width()+10),//从右开始
+            "z-index":888
+        });
+        
+        spans.appendTo($(".box")).animate({
+            "left":$(".box").width(),//从左开始
+            //"right":$(".box").width(),//从右开始
+        },6000,function(){
+        	$(this).remove()
+        });
+    })
+})
+</script>
+	</body>
+</html>
